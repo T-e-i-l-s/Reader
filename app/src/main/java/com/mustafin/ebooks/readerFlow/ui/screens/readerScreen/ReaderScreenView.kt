@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
@@ -61,7 +63,7 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                     readingProgress = progress
                     viewModel.saveRenderedPages(readerProgress)
                 },
-                onSelectWord = {  word, context ->
+                onSelectWord = { word, context ->
                     viewModel.showWordMeaning(word, context)
                 }
             )
@@ -72,7 +74,12 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                 ModalBottomSheet(
                     onDismissRequest = { viewModel.showMenu = false },
                     containerColor = colorResource(id = R.color.background),
-                    windowInsets = WindowInsets(0, 0, 0, 0)
+                    windowInsets = WindowInsets(
+                        0,
+                        0,
+                        0,
+                        WindowInsets.navigationBars.getBottom(LocalDensity.current)
+                    )
                 ) {
                     MenuView(
                         book = viewModel.book,
@@ -86,7 +93,12 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                 ModalBottomSheet(
                     onDismissRequest = { viewModel.resetSelection() },
                     containerColor = colorResource(id = R.color.background),
-                    windowInsets = WindowInsets(0, 0, 0, 0)
+                    windowInsets = WindowInsets(
+                        0,
+                        0,
+                        0,
+                        WindowInsets.navigationBars.getBottom(LocalDensity.current)
+                    )
                 ) {
                     WordMeaningView(viewModel.selectedWord!!, viewModel.selectedContext!!)
                 }

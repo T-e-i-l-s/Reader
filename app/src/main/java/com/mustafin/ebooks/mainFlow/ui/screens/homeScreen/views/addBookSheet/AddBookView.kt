@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -53,11 +54,9 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 100.dp)
             .background(colorResource(id = R.color.background))
             .padding(horizontal = 12.dp)
-            .padding(bottom = 12.dp)
-            .navigationBarsPadding(),
+            .padding(bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
