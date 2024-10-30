@@ -40,10 +40,6 @@ class AddBookViewModel @Inject constructor(
                 // Картинка первой страницы
                 val previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
 
-                // Генерируем пересказ
-                viewStatus = AddBookViewStatus.SUMMARIZING
-                delay(1000)
-
                 // Добавляем книгу в Room
                 viewStatus = AddBookViewStatus.SAVING
                 booksRepository.addBook(

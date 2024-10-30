@@ -7,17 +7,15 @@
     <string name="loading_error">Ошибка загрузки</string>
     <string name="ai">Нейросеть</string>
     <string name="by_ai">Сгенерировано нейросетью</string>
+    <string name="cancel">Отмена</string>
 
-    <!--  Главный экран  -->
+    <!--  Главное меню  -->
     <string name="my_books">Мои книги</string>
     <string name="all_books">Все книги</string>
     <string name="loading_books">Загружаем книги</string>
     <string name="empty_books_list">Книг пока нет</string>
     <string name="read">Читать</string>
-    <string name="reading_statistics">Статистика чтения</string>
-    <string name="reading_time_per_day">Сегодня</string>
-    <string name="summary_reading_time">За все время</string>
-    <string name="summarization">Пересказ</string>
+    <string name="delete">Удалить</string>
     <string name="was_read">Прочитано</string>
     <string name="support">Поддержка</string>
     <string name="estimate">Оценить приложение</string>
@@ -26,6 +24,8 @@
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="about_project">О проекте</string>
     <string name="words">слов</string>
+    <string name="delete_book_confirmation_alert_title">Удалить книгу?</string>
+    <string name="delete_book_confirmation_alert_text">Вы уверены что хотите удалить книгу?</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>
@@ -37,6 +37,5 @@
     <string name="menu">Меню</string>
     <string name="have_read">Прочитано</string>
     <string name="close_book">Закрыть книгу</string>
-    <string name="show_summarization">Смотреть пересказ</string>
     <string name="word_meaning_not_found">Значение не найдено</string>
 </resources>

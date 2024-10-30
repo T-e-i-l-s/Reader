@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -81,7 +78,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 CustomButton(
-                    label = stringResource(id = R.string.add_book),
+                    text = stringResource(id = R.string.add_book),
                     background = colorResource(id = R.color.additional),
                     textColor = colorResource(id = R.color.white),
                     enabled = viewModel.isSelected,

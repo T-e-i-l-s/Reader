@@ -32,7 +32,7 @@ import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
-import com.mustafin.ebooks.mainFlow.ui.views.BookInfoView
+import com.mustafin.ebooks.mainFlow.ui.views.bookView.BookInfoView
 
 // View для главного экрана со списком книг
 @Composable
@@ -41,7 +41,7 @@ fun BooksView(
     books: List<ShortBookModel>,
     openAddBookSheet: () -> Unit,
     openReader: (Int) -> Unit,
-    openAllBooksScreen: () -> Unit,
+    openAllBooksScreen: () -> Unit
 ) {
     Row(
         modifier = Modifier

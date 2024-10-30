@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,12 +31,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
-import com.mustafin.ebooks.mainFlow.ui.views.BookInfoView
+import com.mustafin.ebooks.mainFlow.ui.views.bookView.BookInfoView
 
 // View экрана с полным списком книг
 @Composable
 fun AllBooksScreenView(popBackNavigationStack: () -> Unit, openReader: (bookId: Int) -> Unit) {
     val viewModel: AllBooksScreenViewModel = hiltViewModel()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadBooks()
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -77,7 +82,12 @@ fun AllBooksScreenView(popBackNavigationStack: () -> Unit, openReader: (bookId: 
         }
 
         items(viewModel.books) {
-            BookInfoView(book = it, openReader = openReader)
+            BookInfoView(
+                book = it,
+                openReader = openReader,
+                isRemovable = true,
+                deleteBook = { viewModel.deleteBookById(it.id) }
+            )
         }
 
         item {

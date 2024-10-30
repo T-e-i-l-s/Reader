@@ -16,7 +16,7 @@ import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 
 @Composable
 fun SmallButton(
-    label: String,
+    text: String,
     background: Color,
     textColor: Color,
     modifier: Modifier = Modifier,
@@ -35,7 +35,7 @@ fun SmallButton(
         contentPadding = PaddingValues(horizontal = 15.dp, vertical = 1.dp)
     ) {
         Text(
-            text = label,
+            text = text,
             color = textColor,
             fontSize = 15.sp,
             fontFamily = APP_DEFAULT_FONT,

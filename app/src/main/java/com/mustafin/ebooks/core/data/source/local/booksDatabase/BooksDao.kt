@@ -15,4 +15,7 @@ interface BooksDao {
 
     @Query("SELECT * FROM books WHERE id = :bookId")
     suspend fun getBookById(bookId: Int): BookEntity?
+
+    @Query("DELETE FROM books WHERE id = :bookId")
+    suspend fun deleteBookById(bookId: Int)
 }

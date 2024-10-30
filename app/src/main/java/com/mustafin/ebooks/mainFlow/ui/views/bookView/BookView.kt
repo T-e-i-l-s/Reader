@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.mainFlow.ui.views
+package com.mustafin.ebooks.mainFlow.ui.views.bookView
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,7 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
@@ -31,13 +34,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
+import com.mustafin.ebooks.core.ui.components.ConfirmationAlert
 import com.mustafin.ebooks.core.ui.components.SmallButton
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import kotlin.math.roundToInt
 
 // Ячейка с информацией о книге на главном экране
 @Composable
-fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
+fun BookInfoView(
+    book: ShortBookModel,
+    openReader: (bookId: Int) -> Unit,
+    deleteBook: () -> Unit = {},
+    isRemovable: Boolean = false
+) {
+    var showDeleteConfirmationModal by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -99,12 +110,39 @@ fun BookInfoView(book: ShortBookModel, openReader: (bookId: Int) -> Unit) {
                 )
             }
 
-            SmallButton(
-                label = stringResource(id = R.string.read),
-                background = colorResource(id = R.color.additional),
-                textColor = colorResource(id = R.color.white),
-                onClick = { openReader(book.id) },
-            )
+            Row {
+                SmallButton(
+                    text = stringResource(id = R.string.read),
+                    background = colorResource(id = R.color.additional),
+                    textColor = colorResource(id = R.color.white),
+                    onClick = { openReader(book.id) },
+                )
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                if (isRemovable) {
+                    SmallButton(
+                        text = stringResource(id = R.string.delete),
+                        background = colorResource(id = R.color.red),
+                        textColor = colorResource(id = R.color.white),
+                        onClick = { showDeleteConfirmationModal = true },
+                    )
+                }
+            }
         }
+    }
+
+    if (showDeleteConfirmationModal) {
+        ConfirmationAlert(
+            title = stringResource(id = R.string.delete_book_confirmation_alert_title),
+            text = stringResource(id = R.string.delete_book_confirmation_alert_text),
+            confirmButtonText = stringResource(id = R.string.delete),
+            denyButtonText = stringResource(id = R.string.cancel),
+            onConfirm = {
+                deleteBook()
+                showDeleteConfirmationModal = false
+            },
+            onDismissRequest = { showDeleteConfirmationModal = false }
+        )
     }
 }
