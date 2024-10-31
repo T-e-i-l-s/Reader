@@ -51,8 +51,7 @@ fun NavigationGraph() {
         composable<AllBooksScreen>(
             enterTransition = { slideIn },
             exitTransition = { slideOut },
-            popEnterTransition = { slideIn },
-            popExitTransition = { slideOut }
+            popEnterTransition = { null }
         ) {
             AllBooksScreenView(
                 popBackNavigationStack = { navController.popBackStack() },
