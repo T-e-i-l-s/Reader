@@ -28,10 +28,10 @@ fun EmptyBooksListView() {
     ) {
         Text(
             text = stringResource(id = R.string.empty_books_list),
-            color = colorResource(id = R.color.text),
+            color = colorResource(id = R.color.gray),
             fontSize = 18.sp,
+            fontFamily = APP_DEFAULT_FONT,
             fontWeight = FontWeight.Thin,
-            fontFamily = APP_DEFAULT_FONT
         )
     }
 }
