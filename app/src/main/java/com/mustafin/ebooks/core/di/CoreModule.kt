@@ -1,10 +1,14 @@
 package com.mustafin.ebooks.core.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
+import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
+import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
+import com.mustafin.ebooks.core.data.source.local.lastBookSource.LastBookSource
 import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
 import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.core.domain.LLM_API_BASE_URL
@@ -37,6 +41,24 @@ object CoreModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPrefs(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("reader", Context.MODE_PRIVATE)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLastBookSource(sharedPreferences: SharedPreferences): LastBookSource {
+        return LastBookSource(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLastBookRepository(lastBookRepository: LastBookSource): LastBookRepository {
+        return LastBookRepositoryImpl(lastBookRepository)
     }
 
     @Provides

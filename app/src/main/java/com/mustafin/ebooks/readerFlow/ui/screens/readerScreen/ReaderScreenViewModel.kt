@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
+import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ReaderScreenViewModel @Inject constructor(
     private val booksRepository: BooksRepository,
-    private val readerProgressRepository: ReaderProgressRepository
+    private val readerProgressRepository: ReaderProgressRepository,
+    private val lastBookRepository: LastBookRepository
 ) : ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
 
@@ -34,9 +36,15 @@ class ReaderScreenViewModel @Inject constructor(
 
     private var bookId: Int? = null
 
-    fun setBookId(booksId: Int) {
-        this.bookId = booksId
+    fun setBookId(bookId: Int) {
+        this.bookId = bookId
+        lastBookRepository.setLastBookId(bookId)
         loadData()
+    }
+
+    // Функция, которая исполняется преед выходом с экрана
+    fun onExitScreen() {
+        lastBookRepository.setLastBookId(null)
     }
 
     // Функция полной загрузки данных

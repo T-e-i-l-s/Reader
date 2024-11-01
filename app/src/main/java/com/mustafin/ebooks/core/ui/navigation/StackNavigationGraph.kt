@@ -35,10 +35,13 @@ val slideOut = slideOutHorizontally(
 
 // Граф навигации
 @Composable
-fun NavigationGraph() {
+fun NavigationGraph(lastBookId: Int?) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = HomeScreen) {
+    NavHost(
+        navController = navController,
+        startDestination = if (lastBookId == null) HomeScreen else ReaderScreen(lastBookId)
+    ) {
         // Главный экран
         composable<HomeScreen> {
             HomeScreenView(
@@ -64,7 +67,7 @@ fun NavigationGraph() {
             val args: ReaderScreen = it.toRoute()
             ReaderScreenView(
                 args.bookId,
-                openHomeScreen = { navController.popBackStack() }
+                openHomeScreen = { navController.navigate(HomeScreen) }
             )
         }
     }

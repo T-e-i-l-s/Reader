@@ -7,11 +7,15 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
 import com.mustafin.ebooks.core.ui.navigation.NavigationGraph
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject lateinit var lastBookRepository: LastBookRepository
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +30,11 @@ class MainActivity : ComponentActivity() {
         // Запрещаем экрану гаснуть
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+        val lastBookId = lastBookRepository.getLastBookId()
+
         enableEdgeToEdge()
         setContent {
-            NavigationGraph()
+            NavigationGraph(lastBookId)
         }
     }
 
