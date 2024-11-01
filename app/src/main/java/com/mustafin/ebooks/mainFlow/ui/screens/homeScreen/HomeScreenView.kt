@@ -23,6 +23,7 @@ import com.mustafin.ebooks.R
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookBottomSheetView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet.AddBookViewModel
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.booksView.BooksView
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.daysInRowView.DaysInRowView
 import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.optionsView.OptionsListView
 
 // Главный экран приложения
@@ -54,6 +55,10 @@ fun HomeScreenView(
                 openReader = openReader,
                 openAllBooksScreen = openAllBooksScreen
             )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            
+            DaysInRowView(daysInRow = 7)
 
             Spacer(modifier = Modifier.height(12.dp))
 
