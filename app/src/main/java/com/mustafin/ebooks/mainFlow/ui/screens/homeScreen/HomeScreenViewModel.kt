@@ -10,6 +10,7 @@ import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowR
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,9 +31,9 @@ class HomeScreenViewModel @Inject constructor(
     var daysInRow by mutableStateOf<Int?>(null)
 
     fun loadData() {
-        viewModelScope.launch {
-            books = withContext(Dispatchers.IO) { booksRepository.getBooks() }
+        CoroutineScope(Dispatchers.IO).launch {
             daysInRow = daysInRowRepository.getDaysInRowCount()
+            books = booksRepository.getBooks()
             loadingStatus = LoadingStatus.LOADED
         }
     }

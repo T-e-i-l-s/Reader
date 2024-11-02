@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,7 +38,7 @@ private data class DaysInRowFeatureSetting(
 
 // View с отображением "Дней в ударе" на главном экране
 @Composable
-fun DaysInRowView(daysInRow: Int) {
+fun DaysInRowView(daysInRow: Int?) {
     val daysInRowSettings = listOf(
         DaysInRowFeatureSetting(0, painterResource(id = R.drawable.empty_desert)),
         DaysInRowFeatureSetting(1, painterResource(id = R.drawable.small_house)),
@@ -51,7 +52,12 @@ fun DaysInRowView(daysInRow: Int) {
     var currentSetting: DaysInRowFeatureSetting? by remember { mutableStateOf(null) }
 
     LaunchedEffect(daysInRow) {
+        if (daysInRow == null) return@LaunchedEffect
         daysInRowSettings.forEachIndexed { index, item ->
+            if (index == daysInRowSettings.size - 1) {
+                currentSetting = daysInRowSettings[index]
+                return@LaunchedEffect
+            }
             if (item.daysInRow > daysInRow) {
                 currentSetting = daysInRowSettings[index - 1]
                 return@LaunchedEffect
@@ -77,7 +83,7 @@ fun DaysInRowView(daysInRow: Int) {
                 Text(
                     text = "$daysInRow ${
                         when {
-                            daysInRow % 100 in 11..19 -> "дней"
+                            daysInRow!! % 100 in 11..19 -> "дней"
                             daysInRow % 10 == 1 -> "день"
                             daysInRow % 10 in 2..4 -> "дня"
                             else -> "дней"
