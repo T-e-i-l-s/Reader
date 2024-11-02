@@ -50,7 +50,7 @@ fun DaysInRowView(daysInRow: Int) {
 
     var currentSetting: DaysInRowFeatureSetting? by remember { mutableStateOf(null) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(daysInRow) {
         daysInRowSettings.forEachIndexed { index, item ->
             if (item.daysInRow > daysInRow) {
                 currentSetting = daysInRowSettings[index - 1]

@@ -5,9 +5,12 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
+import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowRepository
+import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowRepositoryImpl
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
+import com.mustafin.ebooks.core.data.source.local.daysInRow.DaysInRowSource
 import com.mustafin.ebooks.core.data.source.local.lastBookSource.LastBookSource
 import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
 import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
@@ -57,8 +60,20 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideLastBookRepository(lastBookRepository: LastBookSource): LastBookRepository {
-        return LastBookRepositoryImpl(lastBookRepository)
+    fun provideLastBookRepository(lastBookSource: LastBookSource): LastBookRepository {
+        return LastBookRepositoryImpl(lastBookSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDaysInRowSource(sharedPreferences: SharedPreferences): DaysInRowSource {
+        return DaysInRowSource(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDaysInRowRepository(daysInRowSource: DaysInRowSource): DaysInRowRepository {
+        return DaysInRowRepositoryImpl(daysInRowSource)
     }
 
     @Provides

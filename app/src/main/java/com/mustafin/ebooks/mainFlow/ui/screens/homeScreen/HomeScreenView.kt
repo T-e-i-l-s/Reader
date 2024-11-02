@@ -58,7 +58,7 @@ fun HomeScreenView(
 
             Spacer(modifier = Modifier.height(12.dp))
             
-            DaysInRowView(daysInRow = 7)
+            DaysInRowView(daysInRow = viewModel.daysInRow ?: 0)
 
             Spacer(modifier = Modifier.height(12.dp))
 

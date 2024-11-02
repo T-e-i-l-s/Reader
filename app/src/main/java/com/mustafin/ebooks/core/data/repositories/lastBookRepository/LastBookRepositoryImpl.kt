@@ -12,7 +12,7 @@ class LastBookRepositoryImpl @Inject constructor(
         return lastBookSource.getLastBookId()
     }
 
-    override fun setLastBookId(bookId: Int?) {
+    override suspend fun setLastBookId(bookId: Int?) {
         lastBookSource.setLastBookId(bookId)
     }
 }

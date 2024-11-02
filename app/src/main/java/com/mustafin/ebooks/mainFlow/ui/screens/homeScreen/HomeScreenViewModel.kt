@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
+import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowRepository
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import javax.inject.Inject
 // View Model главного экрана
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val booksRepository: BooksRepositoryImpl
+    private val booksRepository: BooksRepositoryImpl,
+    private val daysInRowRepository: DaysInRowRepository
 ) : ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
         private set
@@ -25,9 +27,12 @@ class HomeScreenViewModel @Inject constructor(
     var books by mutableStateOf<List<ShortBookModel>>(emptyList())
         private set
 
+    var daysInRow by mutableStateOf<Int?>(null)
+
     fun loadData() {
         viewModelScope.launch {
             books = withContext(Dispatchers.IO) { booksRepository.getBooks() }
+            daysInRow = daysInRowRepository.getDaysInRowCount()
             loadingStatus = LoadingStatus.LOADED
         }
     }

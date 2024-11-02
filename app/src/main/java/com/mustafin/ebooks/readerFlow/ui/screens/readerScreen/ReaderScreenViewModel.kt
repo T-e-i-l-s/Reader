@@ -4,7 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
+import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowRepository
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
 import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository
@@ -21,7 +23,8 @@ import javax.inject.Inject
 class ReaderScreenViewModel @Inject constructor(
     private val booksRepository: BooksRepository,
     private val readerProgressRepository: ReaderProgressRepository,
-    private val lastBookRepository: LastBookRepository
+    private val lastBookRepository: LastBookRepository,
+    private val daysInRowRepository: DaysInRowRepository
 ) : ViewModel() {
     var loadingStatus by mutableStateOf(LoadingStatus.LOADING)
 
@@ -38,13 +41,18 @@ class ReaderScreenViewModel @Inject constructor(
 
     fun setBookId(bookId: Int) {
         this.bookId = bookId
-        lastBookRepository.setLastBookId(bookId)
+        viewModelScope.launch {
+            lastBookRepository.setLastBookId(bookId)
+            daysInRowRepository.updateDaysInRowCount()
+        }
         loadData()
     }
 
     // Функция, которая исполняется преед выходом с экрана
     fun onExitScreen() {
-        lastBookRepository.setLastBookId(null)
+        viewModelScope.launch {
+            lastBookRepository.setLastBookId(null)
+        }
     }
 
     // Функция полной загрузки данных
