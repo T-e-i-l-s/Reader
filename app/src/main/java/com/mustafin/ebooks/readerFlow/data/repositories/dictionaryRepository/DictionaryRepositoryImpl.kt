@@ -12,7 +12,7 @@ class DictionaryRepositoryImpl @Inject constructor(
         word: String,
         context: String
     ): Pair<ResponseStatus, String?> {
-        return dictionaryApi.getWordMeaning(
+        return dictionaryApi.makeRequest(
             "Дай определение слова $word в отрывке $context. " +
                     "Определение должно быть в формате \"Это ...\", или \"...\", или \"Это означает ...\". " +
                     "Определение должно содержать минимум одно предложение. " +

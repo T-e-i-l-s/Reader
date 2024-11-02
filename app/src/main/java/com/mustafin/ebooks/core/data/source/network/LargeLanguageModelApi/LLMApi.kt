@@ -10,7 +10,7 @@ class LLMApi @Inject constructor(retrofit: Retrofit) {
     }
 
     // Запрос на получение значения слова из сети
-    suspend fun getWordMeaning(prompt: String): Pair<ResponseStatus, String?> {
+    suspend fun makeRequest(prompt: String): Pair<ResponseStatus, String?> {
         return try {
             val response = service.getWordMeaning(
                 request = LLMApiService.GetWordMeaningRequestBody(
@@ -23,8 +23,6 @@ class LLMApi @Inject constructor(retrofit: Retrofit) {
                 )
             )
 
-            println(response)
-
             if (response.isSuccessful) {
                 Pair(
                     ResponseStatus.SUCCESS,
@@ -36,7 +34,6 @@ class LLMApi @Inject constructor(retrofit: Retrofit) {
                 Pair(ResponseStatus.ERROR, null)
             }
         } catch (e: Exception) {
-            println(e)
             Pair(ResponseStatus.ERROR, null)
         }
     }

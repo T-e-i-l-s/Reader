@@ -10,6 +10,7 @@ import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositor
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
 import com.mustafin.ebooks.core.domain.extensions.getFileName
 import com.mustafin.ebooks.core.domain.extensions.toByteArray
+import com.mustafin.ebooks.mainFlow.data.repositories.bookInfoRepository.BookInfoRepository
 import com.mustafin.ebooks.mainFlow.domain.ContentProcessor
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
@@ -24,7 +25,8 @@ import javax.inject.Inject
 class AddBookViewModel @Inject constructor(
     private val application: Application,
     private val booksRepository: BooksRepositoryImpl,
-    private val pdfReader: PdfReader
+    private val pdfReader: PdfReader,
+    private val bookInfoRepository: BookInfoRepository
 ) : AndroidViewModel(application) {
     var viewStatus by mutableStateOf(AddBookViewStatus.WAITING)
 
@@ -34,8 +36,19 @@ class AddBookViewModel @Inject constructor(
             try {
                 // Сканируем текст книги
                 viewStatus = AddBookViewStatus.SCANNING
-                // Текст книги
                 val bookContent = pdfReader.extractTextFromPdf(selectedFileUri!!)
+
+                // Обрабатываем текст книги
+                viewStatus = AddBookViewStatus.PROCESSING
+                // Раздяеляем текст в List<String>
+                val separatedContent = ContentProcessor.separateContent(bookContent)
+                // Получаем название книги при помощи ИИ
+                var firstFragment = ""
+                separatedContent.subList(
+                    0, 500.coerceAtMost(separatedContent.size)
+                ).forEach { firstFragment += "$it " }
+                val bookName = bookInfoRepository.getBookInfoByFragment(firstFragment).second
+
                 // Картинка первой страницы
                 val previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
 
@@ -43,9 +56,9 @@ class AddBookViewModel @Inject constructor(
                 viewStatus = AddBookViewStatus.SAVING
                 booksRepository.addBook(
                     BookEntity(
-                        name = selectedFileName!!,
+                        name = bookName!!.name,
                         preview = previewBitmap.toByteArray(),
-                        content = ContentProcessor.separateContent(bookContent)
+                        content = separatedContent
                     )
                 )
 
