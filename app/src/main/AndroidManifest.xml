@@ -10,6 +10,7 @@
     <application
         android:name=".core.ui.Application"
         android:allowBackup="true"
+        android:largeHeap="true"
         android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

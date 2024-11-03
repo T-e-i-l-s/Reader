@@ -64,6 +64,7 @@ class AddBookViewModel @Inject constructor(
 
                 viewStatus = AddBookViewStatus.COMPLETED
             } catch (e: Exception) {
+                println(e)
                 viewStatus = AddBookViewStatus.ERROR
             }
         }
