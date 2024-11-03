@@ -68,6 +68,7 @@ dependencies {
     // Room
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.appcompat)
     kapt(libs.androidx.room.compiler)
 
     // PDF

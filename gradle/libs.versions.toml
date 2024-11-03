@@ -21,6 +21,7 @@ pdfbox = "2.0.27"
 pdfiumAndroid = "1.0.1"
 retrofit = "2.9.0"
 roomKtx = "2.6.1"
+appcompat = "1.7.0"
 
 [libraries]
 analytics = { module = "io.appmetrica.analytics:analytics", version.ref = "analytics" }
@@ -54,6 +55,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 pdfbox = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
 pdfium-android = { module = "com.github.barteksc:pdfium-android", version.ref = "pdfiumAndroid" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
