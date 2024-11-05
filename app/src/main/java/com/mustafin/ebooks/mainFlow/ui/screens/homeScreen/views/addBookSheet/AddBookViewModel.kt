@@ -1,11 +1,13 @@
 package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet
 
 import android.app.Application
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BookEntity
 import com.mustafin.ebooks.core.domain.extensions.getFileName
@@ -29,6 +31,9 @@ class AddBookViewModel @Inject constructor(
     private val bookInfoRepository: BookInfoRepository
 ) : AndroidViewModel(application) {
     var viewStatus by mutableStateOf(AddBookViewStatus.WAITING)
+    var bookName by mutableStateOf("")
+    var separatedContent = emptyList<String>()
+    lateinit var previewBitmap: Bitmap
 
     // Функция обработки полученного файла
     fun precessData() {
@@ -41,32 +46,37 @@ class AddBookViewModel @Inject constructor(
                 // Обрабатываем текст книги
                 viewStatus = AddBookViewStatus.PROCESSING
                 // Раздяеляем текст в List<String>
-                val separatedContent = ContentProcessor.separateContent(bookContent)
-                // Получаем название книги при помощи ИИ
+                separatedContent = ContentProcessor.separateContent(bookContent)
+                // Получаем основную информацию книги(название) при помощи ИИ
                 var firstFragment = ""
                 separatedContent.subList(
                     0, 500.coerceAtMost(separatedContent.size)
                 ).forEach { firstFragment += "$it " }
-                val bookName = bookInfoRepository.getBookInfoByFragment(firstFragment).second
-
+                val bookInfo = bookInfoRepository.getBookInfoByFragment(firstFragment).second
                 // Картинка первой страницы
-                val previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
+                previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
 
-                // Добавляем книгу в Room
-                viewStatus = AddBookViewStatus.SAVING
-                booksRepository.addBook(
-                    BookEntity(
-                        name = bookName!!.name,
-                        preview = previewBitmap.toByteArray(),
-                        content = separatedContent
-                    )
-                )
-
-                viewStatus = AddBookViewStatus.COMPLETED
+                // Запрашивем у пользователя название книги
+                bookName = bookInfo!!.name
+                viewStatus = AddBookViewStatus.REQUEST_BOOK_NAME
             } catch (e: Exception) {
                 println(e)
                 viewStatus = AddBookViewStatus.ERROR
             }
+        }
+    }
+
+    fun saveBook() {
+        // Добавляем книгу в Room
+        viewModelScope.launch {
+            viewStatus = AddBookViewStatus.SAVING
+            booksRepository.addBook(
+                BookEntity(
+                    name = bookName,
+                    preview = previewBitmap.toByteArray(),
+                    content = separatedContent
+                )
+            )
         }
     }
 

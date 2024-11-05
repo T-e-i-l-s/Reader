@@ -122,6 +122,25 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                 )
             }
 
+            AddBookViewStatus.REQUEST_BOOK_NAME -> {
+                Text(
+                    text = viewModel.bookName,
+                    color = colorResource(id = R.color.text),
+                    fontSize = 18.sp,
+                    fontFamily = APP_DEFAULT_FONT
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                CustomButton(
+                    text = stringResource(id = R.string.save_book_name),
+                    background = colorResource(id = R.color.additional),
+                    textColor = colorResource(id = R.color.white),
+                    enabled = viewModel.isSelected,
+                    modifier = Modifier.fillMaxWidth()
+                ) { viewModel.precessData() }
+            }
+
             else -> {
                 CustomProgressIndicator(
                     size = 21.dp,
