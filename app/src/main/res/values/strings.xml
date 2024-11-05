@@ -27,6 +27,10 @@
     <string name="daysInRowInstruction">Столько дней подряд вы читаете книги.</string>
     <string name="delete_book_confirmation_alert_title">Удалить книгу?</string>
     <string name="delete_book_confirmation_alert_text">Вы уверены что хотите удалить книгу?</string>
+    <string name="light_theme">Светлая</string>
+    <string name="dark_theme">Темная</string>
+    <string name="system_theme">Системная</string>
+    <string name="theme_selector_title">Тема приложения</string>
 
     <!--  View добавления книги  -->
     <string name="select_file">Выбрать .pdf файл</string>

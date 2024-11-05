@@ -1,13 +1,14 @@
 package com.mustafin.ebooks.core.ui
 
 import android.annotation.SuppressLint
+import android.app.UiModeManager
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatDelegate
 import com.mustafin.ebooks.core.data.repositories.appThemeRepository.AppThemeRepository
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
 import com.mustafin.ebooks.core.domain.enums.Theme
@@ -32,13 +33,15 @@ class MainActivity : ComponentActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Настраиваем тему приложения
+        val uiManager = this.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager;
         val theme = appThemeRepository.getTheme()
-        println(theme)
         when (theme) {
-            Theme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            Theme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            Theme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            Theme.LIGHT -> uiManager.nightMode = UiModeManager.MODE_NIGHT_NO
+            Theme.DARK ->uiManager.nightMode = UiModeManager.MODE_NIGHT_YES
+            Theme.SYSTEM ->uiManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         }
+
+
 
         // Запрещаем экрану гаснуть
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

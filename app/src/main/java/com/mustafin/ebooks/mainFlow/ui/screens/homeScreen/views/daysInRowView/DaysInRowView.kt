@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -68,7 +67,6 @@ fun DaysInRowView(daysInRow: Int?) {
     if (currentSetting != null) {
         Box(
             modifier = Modifier
-                .padding(horizontal = 12.dp)
                 .fillMaxWidth()
                 .height(100.dp)
                 .clip(RoundedCornerShape(12.dp))

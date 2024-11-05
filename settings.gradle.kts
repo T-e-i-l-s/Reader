@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Coffee Book"
+rootProject.name = "Reader"
 include(":app")
  

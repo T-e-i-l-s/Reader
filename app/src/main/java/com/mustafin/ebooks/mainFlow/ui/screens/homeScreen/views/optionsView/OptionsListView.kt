@@ -3,7 +3,6 @@ package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.optionsView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
@@ -19,7 +18,6 @@ import com.mustafin.ebooks.R
 fun OptionsListView() {
     Column(
         Modifier
-            .padding(horizontal = 12.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))

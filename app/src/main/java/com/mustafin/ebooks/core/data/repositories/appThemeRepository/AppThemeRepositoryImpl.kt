@@ -7,7 +7,7 @@ import javax.inject.Inject
 // Репозиторий для работы с темой приложения
 class AppThemeRepositoryImpl @Inject constructor(private val appThemeSource: AppThemeSource): AppThemeRepository {
     override fun getTheme(): Theme {
-        return  Theme.DARK //appThemeSource.getTheme()
+        return appThemeSource.getTheme()
     }
 
     override suspend fun setTheme(newTheme: Theme) {
