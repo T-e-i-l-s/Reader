@@ -79,15 +79,9 @@ fun HomeScreenView(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(
-                    text = stringResource(id = R.string.theme_selector_title),
-                    fontSize = 21.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = APP_DEFAULT_FONT,
-                    color = colorResource(id = R.color.text)
-                )
+                OptionsListView()
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 ThemeSelectorView(currentTheme = viewModel.currentTheme) { selectedTheme ->
                     viewModel.saveNewTheme(selectedTheme)
@@ -98,11 +92,11 @@ fun HomeScreenView(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OptionsListView()
-
-                Spacer(modifier = Modifier.navigationBarsPadding())
+                Spacer(
+                    modifier = Modifier
+                    .padding(bottom = 12.dp)
+                    .navigationBarsPadding()
+                )
             }
         }
     }
