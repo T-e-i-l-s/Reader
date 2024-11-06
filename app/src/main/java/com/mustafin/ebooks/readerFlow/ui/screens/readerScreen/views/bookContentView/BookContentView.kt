@@ -5,6 +5,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
@@ -27,7 +28,9 @@ fun BookContentView(
     LaunchedEffect(Unit) {
         if (!viewModel.restored && readerProgress.rendered.size > 1) {
             viewModel.restoreProgress(readerProgress)
-            pagerState.scrollToPage(viewModel.pages.size+1)
+            pagerState.scrollToPage(viewModel.pages.size + 1)
+        } else {
+            viewModel.isPagerReady = true
         }
     }
 
@@ -40,14 +43,14 @@ fun BookContentView(
         setReadingProgress(
             wordsSum.toFloat() / book.content.size,
             ReaderProgressModel(
-                viewModel.pages.subList(0, pagerState.currentPage+1),
+                viewModel.pages.subList(0, pagerState.currentPage + 1),
                 wordsSum
             )
         )
     }
 
     HorizontalPager(
-        modifier = modifier,
+        modifier = modifier.alpha(if (!viewModel.isPagerReady) 0f else 1f),
         state = pagerState
     ) {
         ContentFlowRow(

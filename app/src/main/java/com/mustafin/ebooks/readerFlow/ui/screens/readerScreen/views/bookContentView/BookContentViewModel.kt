@@ -11,6 +11,8 @@ import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
 
 // ViewModel блока с текстом книги
 class BookContentViewModel(private val book: BookModel) : ViewModel() {
+    var isPagerReady by mutableStateOf(false)
+
     // Индексы слов в массиве, которые сейчас открыты
     private var firstWordIndex by mutableIntStateOf(0)
     private var lastWordIndex by mutableStateOf<Int?>(null)
@@ -65,5 +67,6 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
         pages.clear()
         pages.addAll(readerProgressModel.rendered)
         restored = true
+        isPagerReady = true
     }
 }
