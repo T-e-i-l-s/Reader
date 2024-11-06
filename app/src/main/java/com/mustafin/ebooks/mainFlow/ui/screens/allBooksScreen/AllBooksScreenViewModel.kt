@@ -35,9 +35,9 @@ class AllBooksScreenViewModel @Inject constructor(
     }
 
     fun deleteBookById(bookId: Int) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             books = books.filter { it.id != bookId }
-            withContext(Dispatchers.IO) { booksRepository.deleteBookById(bookId) }
+            booksRepository.deleteBookById(bookId)
         }
     }
 }

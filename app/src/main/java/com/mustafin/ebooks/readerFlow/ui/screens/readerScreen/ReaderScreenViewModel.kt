@@ -15,6 +15,7 @@ import com.mustafin.ebooks.readerFlow.domain.models.ReaderProgressModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,11 +42,12 @@ class ReaderScreenViewModel @Inject constructor(
 
     fun setBookId(bookId: Int) {
         this.bookId = bookId
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             lastBookRepository.setLastBookId(bookId)
             daysInRowRepository.updateDaysInRowCount()
+            delay(1000)
+            loadData()
         }
-        loadData()
     }
 
     // Функция, которая исполняется преед выходом с экрана
@@ -56,13 +58,15 @@ class ReaderScreenViewModel @Inject constructor(
     }
 
     // Функция полной загрузки данных
-    private fun loadData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            loadingStatus = LoadingStatus.LOADING
-            book = booksRepository.getBookById(bookId!!)
-            readerProgress = readerProgressRepository.getProgress(bookId!!)
-            loadingStatus = LoadingStatus.LOADED
-        }
+    private suspend fun loadData() = viewModelScope.launch {
+        loadingStatus = LoadingStatus.LOADING
+        val bookDeferred = booksRepository.getBookById(bookId!!)
+        val progressDeferred = readerProgressRepository.getProgress(bookId!!)
+
+        book = bookDeferred
+        readerProgress = progressDeferred
+
+        loadingStatus = LoadingStatus.LOADED
     }
 
     // Сохранить страницы, которые были открыты

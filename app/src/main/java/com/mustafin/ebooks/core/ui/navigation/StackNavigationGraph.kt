@@ -23,16 +23,6 @@ private object AllBooksScreen
 @Serializable
 private data class ReaderScreen(val bookId: Int)
 
-// Анимации при навигации
-val slideIn = slideInHorizontally(
-    initialOffsetX = { it },
-    animationSpec = tween(500)
-)
-val slideOut = slideOutHorizontally(
-    targetOffsetX = { it },
-    animationSpec = tween(500)
-)
-
 // Граф навигации
 @Composable
 fun NavigationGraph(lastBookId: Int?) {
@@ -51,11 +41,7 @@ fun NavigationGraph(lastBookId: Int?) {
         }
 
         // Экран с полным списком книг
-        composable<AllBooksScreen>(
-            enterTransition = { slideIn },
-            exitTransition = { slideOut },
-            popEnterTransition = { null }
-        ) {
+        composable<AllBooksScreen> {
             AllBooksScreenView(
                 popBackNavigationStack = { navController.popBackStack() },
                 openReader = { bookId -> navController.navigate(ReaderScreen(bookId)) }

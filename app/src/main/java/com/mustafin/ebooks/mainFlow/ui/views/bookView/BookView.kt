@@ -1,5 +1,11 @@
 package com.mustafin.ebooks.mainFlow.ui.views.bookView
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,85 +55,96 @@ fun BookInfoView(
     isRemovable: Boolean = false
 ) {
     var showDeleteConfirmationModal by remember { mutableStateOf(false) }
+    var isVisible by remember { mutableStateOf(false) }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(254.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(colorResource(id = R.color.secondary_background))
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) { openReader(book.id) }
-            .padding(12.dp),
+    LaunchedEffect(Unit) {
+        isVisible = true
+    }
+
+    AnimatedVisibility(
+        visible = isVisible,
+        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+        exit = fadeOut(animationSpec = tween(durationMillis = 300))
     ) {
-        Image(
-            bitmap = book.preview.asImageBitmap(),
-            contentDescription = null,
+        Row(
             modifier = Modifier
-                .width(150.dp)
-                .height(230.dp)
-                .clip(RoundedCornerShape(4.dp))
-                .background(colorResource(id = R.color.gray)),
-            contentScale = ContentScale.Crop
-        )
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth()
+                .height(254.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(colorResource(id = R.color.secondary_background))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { openReader(book.id) }
+                .padding(12.dp),
         ) {
-            Text(
-                text = book.name,
-                color = colorResource(id = R.color.text),
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp,
-                fontFamily = APP_DEFAULT_FONT,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+            Image(
+                bitmap = book.preview.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(230.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(colorResource(id = R.color.gray)),
+                contentScale = ContentScale.Crop
             )
 
-            Column {
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(
-                    text = "${stringResource(id = R.string.was_read)} ${(book.progress * 100).roundToInt()}%",
-                    color = colorResource(id = R.color.gray),
-                    fontWeight = FontWeight.Thin,
-                    fontSize = 15.sp,
+                    text = book.name,
+                    color = colorResource(id = R.color.text),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp,
                     fontFamily = APP_DEFAULT_FONT,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
 
-                Spacer(modifier = Modifier.height(3.dp))
-
-                LinearProgressIndicator(
-                    progress = { book.progress },
-                    color = colorResource(id = R.color.additional),
-                    trackColor = colorResource(id = R.color.ternary),
-                    strokeCap = StrokeCap.Round,
-                    modifier = Modifier
-                        .height(7.dp)
-                        .fillMaxWidth()
-                )
-            }
-
-            Row {
-                SmallButton(
-                    text = stringResource(id = R.string.read),
-                    background = colorResource(id = R.color.additional),
-                    textColor = colorResource(id = R.color.white),
-                    onClick = { openReader(book.id) },
-                )
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                if (isRemovable) {
-                    SmallButton(
-                        text = stringResource(id = R.string.delete),
-                        background = colorResource(id = R.color.red),
-                        textColor = colorResource(id = R.color.white),
-                        onClick = { showDeleteConfirmationModal = true },
+                Column {
+                    Text(
+                        text = "${stringResource(id = R.string.was_read)} ${(book.progress * 100).roundToInt()}%",
+                        color = colorResource(id = R.color.gray),
+                        fontWeight = FontWeight.Thin,
+                        fontSize = 15.sp,
+                        fontFamily = APP_DEFAULT_FONT,
                     )
+
+                    Spacer(modifier = Modifier.height(3.dp))
+
+                    LinearProgressIndicator(
+                        progress = { book.progress },
+                        color = colorResource(id = R.color.additional),
+                        trackColor = colorResource(id = R.color.ternary),
+                        strokeCap = StrokeCap.Round,
+                        modifier = Modifier
+                            .height(7.dp)
+                            .fillMaxWidth()
+                    )
+                }
+
+                Row {
+                    SmallButton(
+                        text = stringResource(id = R.string.read),
+                        background = colorResource(id = R.color.additional),
+                        textColor = colorResource(id = R.color.white),
+                        onClick = { openReader(book.id) },
+                    )
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    if (isRemovable) {
+                        SmallButton(
+                            text = stringResource(id = R.string.delete),
+                            background = colorResource(id = R.color.red),
+                            textColor = colorResource(id = R.color.white),
+                            onClick = { showDeleteConfirmationModal = true },
+                        )
+                    }
                 }
             }
         }

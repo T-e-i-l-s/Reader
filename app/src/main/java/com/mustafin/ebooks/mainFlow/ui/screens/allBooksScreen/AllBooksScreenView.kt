@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
+import com.mustafin.ebooks.core.domain.enums.LoadingStatus
 import com.mustafin.ebooks.mainFlow.ui.views.bookView.BookInfoView
 
 // View экрана с полным списком книг
@@ -101,7 +102,7 @@ fun AllBooksScreenView(popBackNavigationStack: () -> Unit, openReader: (bookId: 
                 Spacer(modifier = Modifier.navigationBarsPadding())
             }
         }
-    } else {
+    } else if (viewModel.loadingStatus == LoadingStatus.LOADED){
         Column(
             modifier = Modifier
                 .fillMaxSize()

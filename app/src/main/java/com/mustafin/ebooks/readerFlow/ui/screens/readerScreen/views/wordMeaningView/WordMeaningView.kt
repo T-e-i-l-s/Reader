@@ -45,7 +45,7 @@ fun WordMeaningView(word: String, context: String) {
         Text(
             text = word,
             color = colorResource(id = R.color.text),
-            fontSize = 18.sp,
+            fontSize = 21.sp,
             fontFamily = APP_DEFAULT_FONT,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth()
@@ -60,7 +60,7 @@ fun WordMeaningView(word: String, context: String) {
                         Text(
                             text = stringResource(id = R.string.word_meaning_not_found),
                             color = colorResource(id = R.color.text),
-                            fontSize = 15.sp,
+                            fontSize = 18.sp,
                             fontFamily = APP_DEFAULT_FONT,
                             fontWeight = FontWeight.Thin,
                             modifier = Modifier.fillMaxWidth()
@@ -71,7 +71,7 @@ fun WordMeaningView(word: String, context: String) {
                         Text(
                             text = viewModel.wordMeaning!!,
                             color = colorResource(id = R.color.text),
-                            fontSize = 15.sp,
+                            fontSize = 18.sp,
                             fontFamily = APP_DEFAULT_FONT,
                             fontWeight = FontWeight.Thin,
                             modifier = Modifier.fillMaxWidth()
@@ -95,7 +95,7 @@ fun WordMeaningView(word: String, context: String) {
                 Text(
                     text = stringResource(id = R.string.loading_error),
                     color = colorResource(id = R.color.text),
-                    fontSize = 15.sp,
+                    fontSize = 18.sp,
                     fontFamily = APP_DEFAULT_FONT,
                     fontWeight = FontWeight.Thin,
                     modifier = Modifier.fillMaxWidth()

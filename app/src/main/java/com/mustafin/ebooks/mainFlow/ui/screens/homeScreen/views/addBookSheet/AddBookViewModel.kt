@@ -77,6 +77,7 @@ class AddBookViewModel @Inject constructor(
                     content = separatedContent
                 )
             )
+            viewStatus = AddBookViewStatus.COMPLETED
         }
     }
 
