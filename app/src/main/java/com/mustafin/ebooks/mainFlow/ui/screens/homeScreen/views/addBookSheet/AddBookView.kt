@@ -27,6 +27,7 @@ import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.ui.components.CustomButton
 import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
+import com.mustafin.ebooks.core.ui.components.CustomTextField
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
 
 // View для импорта книг
@@ -123,11 +124,10 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
             }
 
             AddBookViewStatus.REQUEST_BOOK_NAME -> {
-                Text(
-                    text = viewModel.bookName,
-                    color = colorResource(id = R.color.text),
-                    fontSize = 18.sp,
-                    fontFamily = APP_DEFAULT_FONT
+                CustomTextField(
+                    value = viewModel.bookName,
+                    onValueChange = { viewModel.bookName = it },
+                    placeholder = ""
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
