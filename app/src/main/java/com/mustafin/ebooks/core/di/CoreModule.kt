@@ -3,15 +3,12 @@ package com.mustafin.ebooks.core.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.mustafin.ebooks.core.data.repositories.appThemeRepository.AppThemeRepository
-import com.mustafin.ebooks.core.data.repositories.appThemeRepository.AppThemeRepositoryImpl
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepository
 import com.mustafin.ebooks.core.data.repositories.booksRepository.BooksRepositoryImpl
 import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowRepository
 import com.mustafin.ebooks.core.data.repositories.daysInRowRepository.DaysInRowRepositoryImpl
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepositoryImpl
-import com.mustafin.ebooks.core.data.source.local.appThemeSource.AppThemeSource
 import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
 import com.mustafin.ebooks.core.data.source.local.daysInRow.DaysInRowSource
 import com.mustafin.ebooks.core.data.source.local.lastBookSource.LastBookSource
@@ -77,18 +74,6 @@ object CoreModule {
     @Singleton
     fun provideDaysInRowRepository(daysInRowSource: DaysInRowSource): DaysInRowRepository {
         return DaysInRowRepositoryImpl(daysInRowSource)
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppThemeSource(sharedPreferences: SharedPreferences): AppThemeSource {
-        return AppThemeSource(sharedPreferences)
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppThemeRepository(appThemeSource: AppThemeSource): AppThemeRepository {
-        return AppThemeRepositoryImpl(appThemeSource)
     }
 
     @Provides

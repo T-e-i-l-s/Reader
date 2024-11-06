@@ -138,7 +138,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                     textColor = colorResource(id = R.color.white),
                     enabled = viewModel.isSelected,
                     modifier = Modifier.fillMaxWidth()
-                ) { viewModel.precessData() }
+                ) { viewModel.saveBook() }
             }
 
             else -> {

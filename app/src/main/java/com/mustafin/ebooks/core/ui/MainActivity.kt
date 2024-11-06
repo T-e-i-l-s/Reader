@@ -1,17 +1,13 @@
 package com.mustafin.ebooks.core.ui
 
 import android.annotation.SuppressLint
-import android.app.UiModeManager
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.mustafin.ebooks.core.data.repositories.appThemeRepository.AppThemeRepository
 import com.mustafin.ebooks.core.data.repositories.lastBookRepository.LastBookRepository
-import com.mustafin.ebooks.core.domain.enums.Theme
 import com.mustafin.ebooks.core.ui.navigation.NavigationGraph
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -19,7 +15,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject lateinit var lastBookRepository: LastBookRepository
-    @Inject lateinit var appThemeRepository: AppThemeRepository
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,17 +26,6 @@ class MainActivity : ComponentActivity() {
         При повороте экрана текст в ридере может отображаться неправильно
         */
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-        // Настраиваем тему приложения
-        val uiManager = this.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager;
-        val theme = appThemeRepository.getTheme()
-        when (theme) {
-            Theme.LIGHT -> uiManager.nightMode = UiModeManager.MODE_NIGHT_NO
-            Theme.DARK ->uiManager.nightMode = UiModeManager.MODE_NIGHT_YES
-            Theme.SYSTEM ->uiManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
-        }
-
-
 
         // Запрещаем экрану гаснуть
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
