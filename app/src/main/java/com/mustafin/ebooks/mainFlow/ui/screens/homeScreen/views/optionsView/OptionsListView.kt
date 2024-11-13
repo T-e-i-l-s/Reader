@@ -16,82 +16,46 @@ import com.mustafin.ebooks.R
 // View с различными ссылками
 @Composable
 fun OptionsListView() {
+    // Список со всеми ссылками
+    val options = listOf(
+        OptionModel(
+            R.drawable.support_icon,
+            stringResource(id = R.string.support)
+        ),
+        OptionModel(
+            R.drawable.star_icon,
+            stringResource(id = R.string.estimate)
+        ), OptionModel(
+            R.drawable.donate_icon,
+            stringResource(id = R.string.donate)
+        ), OptionModel(
+            R.drawable.document_icon,
+            stringResource(id = R.string.terms_of_use)
+        ), OptionModel(
+            R.drawable.document_icon,
+            stringResource(id = R.string.privacy_policy)
+        ), OptionModel(
+            R.drawable.about_icon,
+            stringResource(id = R.string.about_project)
+        )
+    )
+
     Column(
         Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(colorResource(id = R.color.secondary_background))
     ) {
-        OptionView(
-            option = OptionModel(
-                R.drawable.support_icon,
-                stringResource(id = R.string.support)
-            )
-        )
-        
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = colorResource(id = R.color.ternary)
-        )
-        
-        OptionView(
-            option = OptionModel(
-                R.drawable.star_icon,
-                stringResource(id = R.string.estimate)
-            )
-        )
+        options.forEachIndexed { index, option ->
+            OptionView(option = option)
 
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = colorResource(id = R.color.ternary)
-        )
-
-        OptionView(
-            option = OptionModel(
-                R.drawable.donate_icon,
-                stringResource(id = R.string.donate)
-            )
-        )
-
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = colorResource(id = R.color.ternary)
-        )
-
-        OptionView(
-            option = OptionModel(
-                R.drawable.document_icon,
-                stringResource(id = R.string.terms_of_use)
-            )
-        )
-
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = colorResource(id = R.color.ternary)
-        )
-
-        OptionView(
-            option = OptionModel(
-                R.drawable.document_icon,
-                stringResource(id = R.string.privacy_policy)
-            )
-        )
-
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            thickness = 1.dp,
-            color = colorResource(id = R.color.ternary)
-        )
-
-        OptionView(
-            option = OptionModel(
-                R.drawable.about_icon,
-                stringResource(id = R.string.about_project)
-            )
-        )
+            if (index != options.size-1) {
+                HorizontalDivider(
+                    modifier = Modifier.fillMaxWidth(),
+                    thickness = 1.dp,
+                    color = colorResource(id = R.color.ternary)
+                )
+            }
+        }
     }
 }
