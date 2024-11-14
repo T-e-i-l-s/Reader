@@ -103,8 +103,6 @@ fun BookInfoView(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                println("1 " + book.progress * 100)
-
                 Column {
                     Text(
                         text = "${stringResource(id = R.string.was_read)} ${(book.progress * 100).roundToInt()}%",

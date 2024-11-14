@@ -43,7 +43,6 @@ fun BooksView(
     openReader: (Int) -> Unit,
     openAllBooksScreen: () -> Unit
 ) {
-    println("2 " + books)
     Row(
         modifier = Modifier
             .fillMaxWidth()

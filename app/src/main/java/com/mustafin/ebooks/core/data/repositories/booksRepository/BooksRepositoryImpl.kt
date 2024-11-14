@@ -16,11 +16,9 @@ class BooksRepositoryImpl @Inject constructor(
 ) : BooksRepository {
     override suspend fun getBooks(): List<ShortBookModel> {
         val books = booksDatabase.booksDao().getBooks()
-        println(books)
         return books.map {
             // Получаем прогресс чтения каждой книги
             val progress = readerProgressDatabase.booksDao().getProgress(it.id)
-            println(progress)
 
             ShortBookModel(
                 it.id,

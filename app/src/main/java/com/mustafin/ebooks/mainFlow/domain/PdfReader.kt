@@ -37,17 +37,14 @@ class PdfReader(private val context: Context) {
     // Функция получения всего текста в pdf файле
     fun extractTextFromPdf(uri: Uri): String {
         val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
-        inputStream?.use { stream ->
-            val reader = PdfReader(stream)
+        val reader = PdfReader(inputStream!!)
 
-            val textBuilder = StringBuilder()
-            for (i in 1..reader.numberOfPages) {
-                val text = PdfTextExtractor.getTextFromPage(reader, i)
-                textBuilder.append(text).append("\n")
-            }
-            textBuilder.toString().trim()
+        val textBuilder = StringBuilder()
+        for (i in 1..reader.numberOfPages) {
+            val text = PdfTextExtractor.getTextFromPage(reader, i)
+            textBuilder.append(text).append("\n")
         }
 
-        return ""
+        return textBuilder.toString().trim()
     }
 }
