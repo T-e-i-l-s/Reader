@@ -67,13 +67,15 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                 if (viewModel.isSelected) {
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    Text(
-                        text = viewModel.selectedFileName!!,
-                        color = colorResource(id = R.color.text),
-                        fontSize = 15.sp,
-                        fontFamily = APP_DEFAULT_FONT,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    viewModel.selectedFileName?.let {
+                        Text(
+                            text = it,
+                            color = colorResource(id = R.color.text),
+                            fontSize = 15.sp,
+                            fontFamily = APP_DEFAULT_FONT,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -149,12 +151,14 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
-                    text = viewModel.viewStatus.label!!,
-                    color = colorResource(id = R.color.text),
-                    fontSize = 18.sp,
-                    fontFamily = APP_DEFAULT_FONT
-                )
+                viewModel.viewStatus.label?.let {
+                    Text(
+                        text = it,
+                        color = colorResource(id = R.color.text),
+                        fontSize = 18.sp,
+                        fontFamily = APP_DEFAULT_FONT
+                    )
+                }
             }
         }
     }

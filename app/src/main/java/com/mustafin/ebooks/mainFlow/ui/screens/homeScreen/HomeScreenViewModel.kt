@@ -32,6 +32,7 @@ class HomeScreenViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             daysInRow = daysInRowRepository.getDaysInRowCount()
             books = booksRepository.getBooks()
+            println("0 " + books)
             loadingStatus = LoadingStatus.LOADED
         }
     }

@@ -53,7 +53,7 @@ fun HomeScreenView(
             BooksView(
                 loadingStatus = viewModel.loadingStatus,
                 books = viewModel.books,
-                openAddBookSheet = { viewModel.openAddBookSheet() },
+                openAddBookSheet = viewModel::openAddBookSheet,
                 openReader = openReader,
                 openAllBooksScreen = openAllBooksScreen
             )
@@ -96,7 +96,7 @@ fun HomeScreenView(
                 WindowInsets.navigationBars.getBottom(LocalDensity.current)
             )
         ) {
-            AddBookBottomSheetView(reloadBooksList = { viewModel.loadData() })
+            AddBookBottomSheetView(reloadBooksList = viewModel::loadData)
         }
     }
 }

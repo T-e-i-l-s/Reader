@@ -68,14 +68,16 @@ fun WordMeaningView(word: String, context: String) {
                     }
 
                     else -> {
-                        Text(
-                            text = viewModel.wordMeaning!!,
-                            color = colorResource(id = R.color.text),
-                            fontSize = 18.sp,
-                            fontFamily = APP_DEFAULT_FONT,
-                            fontWeight = FontWeight.Thin,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                        viewModel.wordMeaning?.let { safeWordMeaning ->
+                            Text(
+                                text = safeWordMeaning,
+                                color = colorResource(id = R.color.text),
+                                fontSize = 18.sp,
+                                fontFamily = APP_DEFAULT_FONT,
+                                fontWeight = FontWeight.Thin,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
 
                         Spacer(modifier = Modifier.height(4.dp))
                         

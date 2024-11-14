@@ -7,16 +7,17 @@ import javax.inject.Inject
 
 class BookInfoRepositoryImpl @Inject constructor(
     private val llmApi: LLMApi
-): BookInfoRepository {
+) : BookInfoRepository {
     override suspend fun getBookInfoByFragment(fragment: String): Pair<ResponseStatus, BookInfoModel?> {
         val llmResponse = llmApi.makeRequest(
             "Найди название произведения в фрагменте \"$fragment\"." +
                     "В ответе дай только название произведения и ничего больше." +
                     "Без кавычек рядом и других символов, которые не входят в название."
         )
-        if (llmResponse.second == null) {
-            return Pair(llmResponse.first, null)
+        return if (llmResponse.second == null) {
+            Pair(llmResponse.first, null)
+        } else {
+            Pair(llmResponse.first, BookInfoModel(llmResponse.second!!))
         }
-        return Pair(llmResponse.first, BookInfoModel(llmResponse.second!!))
     }
 }

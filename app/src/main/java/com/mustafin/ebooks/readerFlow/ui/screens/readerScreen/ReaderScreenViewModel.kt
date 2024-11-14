@@ -60,13 +60,18 @@ class ReaderScreenViewModel @Inject constructor(
     // Функция полной загрузки данных
     private suspend fun loadData() = viewModelScope.launch {
         loadingStatus = LoadingStatus.LOADING
-        val bookDeferred = booksRepository.getBookById(bookId!!)
-        val progressDeferred = readerProgressRepository.getProgress(bookId!!)
+        bookId?.let { bookId ->
+            val bookDeferred = booksRepository.getBookById(bookId)
+            val progressDeferred = readerProgressRepository.getProgress(bookId)
 
-        book = bookDeferred
-        readerProgress = progressDeferred
-
-        loadingStatus = LoadingStatus.LOADED
+            if (bookDeferred == null) {
+                loadingStatus = LoadingStatus.ERROR
+            } else {
+                book = bookDeferred
+                readerProgress = progressDeferred
+                loadingStatus = LoadingStatus.LOADED
+            }
+        }
     }
 
     // Сохранить страницы, которые были открыты

@@ -20,7 +20,7 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
     // Сеттер для индекса последнего слова на странице в массиве
     fun setLastWordIndex(index: Int) {
         lastWordIndex = index
-        pages[pages.size-1] = book.content.subList(
+        pages[pages.size - 1] = book.content.subList(
             firstWordIndex,
             firstWordIndex + index + 1
         )
@@ -48,12 +48,14 @@ class BookContentViewModel(private val book: BookModel) : ViewModel() {
 
     // Перелистывание на следующую страницу
     private fun generateNextPage() {
-        if (firstWordIndex + lastWordIndex!! < book.content.size - 1) {
-            // Устанавливаем новые индексы
-            firstWordIndex += lastWordIndex!!
-            lastWordIndex = null
-            // Обновляем контент на странице
-            loadContent()
+        lastWordIndex?.let { safeLastWordIndex ->
+            if (firstWordIndex + safeLastWordIndex < book.content.size - 1) {
+                // Устанавливаем новые индексы
+                firstWordIndex += safeLastWordIndex
+                lastWordIndex = null
+                // Обновляем контент на странице
+                loadContent()
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,6 +17,7 @@ import com.mustafin.ebooks.mainFlow.data.repositories.bookInfoRepository.BookInf
 import com.mustafin.ebooks.mainFlow.domain.ContentProcessor
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
+import com.mustafin.ebooks.mainFlow.domain.models.BookInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,8 +34,12 @@ class AddBookViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     var viewStatus by mutableStateOf(AddBookViewStatus.WAITING)
     var bookName by mutableStateOf("")
-    var separatedContent = emptyList<String>()
-    lateinit var previewBitmap: Bitmap
+    private var separatedContent = emptyList<String>()
+
+    // Базовый празрачный bitmap для превью книги
+    private var previewBitmap: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888).apply {
+        eraseColor(Color.TRANSPARENT)
+    }
 
     // Функция обработки полученного файла
     fun precessData() {
@@ -45,22 +51,32 @@ class AddBookViewModel @Inject constructor(
 
                 // Обрабатываем текст книги
                 viewStatus = AddBookViewStatus.PROCESSING
+
                 // Раздяеляем текст в List<String>
                 separatedContent = ContentProcessor.separateContent(bookContent)
+
                 // Получаем основную информацию книги(название) при помощи ИИ
-                var firstFragment = ""
-                separatedContent.subList(
-                    0, 500.coerceAtMost(separatedContent.size)
-                ).forEach { firstFragment += "$it " }
-                val bookInfo = bookInfoRepository.getBookInfoByFragment(firstFragment).second
+                var bookInfo = try {
+                    var firstFragment = ""
+                    separatedContent.subList(
+                        0, 500.coerceAtMost(separatedContent.size)
+                    ).forEach { firstFragment += "$it " }
+                    bookInfoRepository.getBookInfoByFragment(firstFragment).second!!
+                } catch (e: Exception) {
+                    BookInfoModel("")
+                }
+
                 // Картинка первой страницы
-                previewBitmap = pdfReader.extractPreviewFromPdf(selectedFileUri!!)
+                selectedFileUri?.let { fileUrl ->
+                    pdfReader.extractPreviewFromPdf(fileUrl)?.let { preview ->
+                        previewBitmap = preview
+                    }
+                }
 
                 // Запрашивем у пользователя название книги
-                bookName = bookInfo!!.name
+                bookName = bookInfo.name
                 viewStatus = AddBookViewStatus.REQUEST_BOOK_NAME
             } catch (e: Exception) {
-                println(e)
                 viewStatus = AddBookViewStatus.ERROR
             }
         }

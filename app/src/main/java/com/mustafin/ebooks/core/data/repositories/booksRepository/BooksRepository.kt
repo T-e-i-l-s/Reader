@@ -7,7 +7,7 @@ import com.mustafin.ebooks.readerFlow.domain.models.BookModel
 interface BooksRepository {
     suspend fun getBooks(): List<ShortBookModel>
 
-    suspend fun getBookById(bookId: Int): BookModel
+    suspend fun getBookById(bookId: Int): BookModel?
 
     suspend fun addBook(book: BookEntity)
 

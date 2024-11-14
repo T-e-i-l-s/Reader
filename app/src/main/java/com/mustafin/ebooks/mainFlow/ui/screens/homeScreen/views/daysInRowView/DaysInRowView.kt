@@ -64,34 +64,36 @@ fun DaysInRowView(daysInRow: Int?) {
         }
     }
 
-    if (currentSetting != null) {
+    currentSetting?.let {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .paint(
-                    currentSetting!!.background,
+                    it.background,
                     contentScale = ContentScale.FillBounds
                 )
                 .background(Color.Black.copy(alpha = 0.3f))
                 .padding(12.dp)
         ) {
             Column(modifier = Modifier.align(Alignment.BottomStart)) {
-                Text(
-                    text = "$daysInRow ${
-                        when {
-                            daysInRow!! % 100 in 11..19 -> "дней"
-                            daysInRow % 10 == 1 -> "день"
-                            daysInRow % 10 in 2..4 -> "дня"
-                            else -> "дней"
-                        }
-                    } в ударе!",
-                    color = colorResource(id = R.color.white),
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 24.sp,
-                    fontFamily = APP_DEFAULT_FONT,
-                )
+                daysInRow?.let { day ->
+                    Text(
+                        text = "$day ${
+                            when {
+                                day % 100 in 11..19 -> "дней"
+                                day % 10 == 1 -> "день"
+                                day % 10 in 2..4 -> "дня"
+                                else -> "дней"
+                            }
+                        } в ударе!",
+                        color = colorResource(id = R.color.white),
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 24.sp,
+                        fontFamily = APP_DEFAULT_FONT,
+                    )
+                }
 
                 Text(
                     text = stringResource(id = R.string.daysInRowInstruction),

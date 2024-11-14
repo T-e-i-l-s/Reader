@@ -98,7 +98,7 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
 
             if (viewModel.showWordMeaning) {
                 ModalBottomSheet(
-                    onDismissRequest = { viewModel.resetSelection() },
+                    onDismissRequest = viewModel::resetSelection,
                     containerColor = colorResource(id = R.color.background),
                     windowInsets = WindowInsets(
                         0,
@@ -107,7 +107,11 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                         WindowInsets.navigationBars.getBottom(LocalDensity.current)
                     )
                 ) {
-                    WordMeaningView(viewModel.selectedWord!!, viewModel.selectedContext!!)
+                    viewModel.selectedWord?.let { selectedWord ->
+                        viewModel.selectedContext?.let { selectedContext ->
+                            WordMeaningView(selectedWord, selectedContext)
+                        }
+                    }
                 }
             }
         } else if (viewModel.loadingStatus == LoadingStatus.LOADING) {

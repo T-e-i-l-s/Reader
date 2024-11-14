@@ -40,7 +40,7 @@ fun NavigationGraph(lastBookId: Int?) {
         // Экран с полным списком книг
         composable<AllBooksScreen> {
             AllBooksScreenView(
-                popBackNavigationStack = { navController.popBackStack() },
+                popBackNavigationStack = navController::popBackStack,
                 openReader = { bookId -> navController.navigate(ReaderScreen(bookId)) }
             )
         }
