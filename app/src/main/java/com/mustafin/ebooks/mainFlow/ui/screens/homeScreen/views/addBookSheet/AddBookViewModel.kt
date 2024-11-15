@@ -64,7 +64,7 @@ class AddBookViewModel @Inject constructor(
             try {
                 // Сохраняем данные о пользовательском соглашении
                 viewStatus = AddBookViewStatus.LOADING
-                rulesRepository.setAreAccepted(true)
+                rulesRepository.setAreAccepted()
 
                 // Сканируем текст книги
                 viewStatus = AddBookViewStatus.SCANNING
