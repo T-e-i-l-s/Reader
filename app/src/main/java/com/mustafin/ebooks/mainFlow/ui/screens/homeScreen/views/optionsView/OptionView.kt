@@ -21,8 +21,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
+import io.appmetrica.analytics.AppMetrica
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // View для отображения какой-либо ссылки
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun OptionView(option: OptionModel) {
     val context = LocalContext.current
@@ -38,6 +43,13 @@ fun OptionView(option: OptionModel) {
                 Toast
                     .makeText(context, "Заглушка", Toast.LENGTH_SHORT)
                     .show()
+
+                GlobalScope.launch {
+                    AppMetrica.reportEvent(
+                        "open_link",
+                        "{\"label\":\"${option.label}\"}"
+                    )
+                }
             }
     ) {
         Icon(

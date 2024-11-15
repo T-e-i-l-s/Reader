@@ -7,6 +7,7 @@ import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderP
 import com.mustafin.ebooks.core.domain.extensions.toBitmap
 import com.mustafin.ebooks.mainFlow.domain.models.ShortBookModel
 import com.mustafin.ebooks.readerFlow.domain.models.BookModel
+import io.appmetrica.analytics.AppMetrica
 import javax.inject.Inject
 
 // Репозиторий для работы с книгами
@@ -35,9 +36,16 @@ class BooksRepositoryImpl @Inject constructor(
 
     override suspend fun addBook(book: BookEntity) {
         booksDatabase.booksDao().addBook(book)
+
+        AppMetrica.reportEvent(
+            "book_created",
+            "{\"name\":\"${book.name}\", \"length(words)\":\"${book.content.size}\"}"
+        )
     }
 
     override suspend fun deleteBookById(bookId: Int) {
         booksDatabase.booksDao().deleteBookById(bookId)
+
+        AppMetrica.reportEvent("book_deleted")
     }
 }

@@ -19,6 +19,7 @@ import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
 import com.mustafin.ebooks.mainFlow.domain.models.BookInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.appmetrica.analytics.AppMetrica
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +57,7 @@ class AddBookViewModel @Inject constructor(
                 separatedContent = ContentProcessor.separateContent(bookContent)
 
                 // Получаем основную информацию книги(название) при помощи ИИ
-                var bookInfo = try {
+                val bookInfo = try {
                     var firstFragment = ""
                     separatedContent.subList(
                         0, 500.coerceAtMost(separatedContent.size)
@@ -65,6 +66,11 @@ class AddBookViewModel @Inject constructor(
                 } catch (e: Exception) {
                     BookInfoModel("")
                 }
+
+                AppMetrica.reportEvent(
+                    "generated_book_name",
+                    "{\"generated_name\":\"${bookInfo.name}\"}"
+                )
 
                 // Картинка первой страницы
                 selectedFileUri?.let { fileUrl ->
