@@ -146,7 +146,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                 CustomTextField(
                     value = viewModel.bookName,
                     onValueChange = { viewModel.bookName = it },
-                    placeholder = ""
+                    placeholder = stringResource(id = R.string.book_name)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -155,7 +155,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                     text = stringResource(id = R.string.save_book_name),
                     background = colorResource(id = R.color.additional),
                     textColor = colorResource(id = R.color.white),
-                    enabled = viewModel.isFileSelected,
+                    enabled = viewModel.bookName.isNotEmpty(),
                     modifier = Modifier.fillMaxWidth()
                 ) { viewModel.saveBook() }
             }
