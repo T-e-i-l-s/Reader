@@ -1,6 +1,9 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,7 +54,12 @@ fun BookContentView(
 
     HorizontalPager(
         modifier = modifier.alpha(if (!viewModel.isPagerReady) 0f else 1f),
-        state = pagerState
+        state = pagerState,
+        beyondViewportPageCount = 1,
+        flingBehavior = PagerDefaults.flingBehavior(
+            state = pagerState,
+            snapPositionalThreshold = Spring.DampingRatioMediumBouncy
+        )
     ) {
         ContentFlowRow(
             currentPageContent = viewModel.pages[it],
