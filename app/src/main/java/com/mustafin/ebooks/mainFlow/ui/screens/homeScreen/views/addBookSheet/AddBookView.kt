@@ -29,8 +29,13 @@ import com.mustafin.ebooks.core.ui.components.CustomButton
 import com.mustafin.ebooks.core.ui.components.CustomProgressIndicator
 import com.mustafin.ebooks.core.ui.components.CustomTextField
 import com.mustafin.ebooks.mainFlow.domain.models.AddBookViewStatus
+import com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.acceptRulesView.AcceptRulesView
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // View для импорта книг
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
     val viewModel: AddBookViewModel = hiltViewModel()
@@ -46,7 +51,11 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
     }
 
     LaunchedEffect(viewModel.viewStatus == AddBookViewStatus.COMPLETED) {
-        reloadBooksList() // TODO: Поменять логику, чтобы список не обновлялся при первой загрузке
+        reloadBooksList()
+
+        GlobalScope.launch {
+            viewModel.loadWereRulesAcceptedBefore()
+        }
     }
 
     Column(
@@ -64,7 +73,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                     selectFileLauncher.launch(arrayOf("application/pdf"))
                 }
 
-                if (viewModel.isSelected) {
+                if (viewModel.isFileSelected) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     viewModel.selectedFileName?.let {
@@ -80,11 +89,19 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(12.dp))
 
+                if (!viewModel.wereRulesAcceptedBefore) {
+                    AcceptRulesView(areAccepted = viewModel.areRulesAccepted) {
+                        viewModel.areRulesAccepted = it
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
                 CustomButton(
                     text = stringResource(id = R.string.add_book),
                     background = colorResource(id = R.color.additional),
                     textColor = colorResource(id = R.color.white),
-                    enabled = viewModel.isSelected,
+                    enabled = viewModel.isFileSelected && (viewModel.areRulesAccepted || viewModel.wereRulesAcceptedBefore),
                     modifier = Modifier.fillMaxWidth()
                 ) { viewModel.precessData() }
             }
@@ -138,7 +155,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                     text = stringResource(id = R.string.save_book_name),
                     background = colorResource(id = R.color.additional),
                     textColor = colorResource(id = R.color.white),
-                    enabled = viewModel.isSelected,
+                    enabled = viewModel.isFileSelected,
                     modifier = Modifier.fillMaxWidth()
                 ) { viewModel.saveBook() }
             }

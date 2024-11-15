@@ -1,9 +1,13 @@
 package com.mustafin.ebooks.mainFlow.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.mainFlow.data.repositories.bookInfoRepository.BookInfoRepository
 import com.mustafin.ebooks.mainFlow.data.repositories.bookInfoRepository.BookInfoRepositoryImpl
+import com.mustafin.ebooks.mainFlow.data.repositories.rulesRepository.RulesRepository
+import com.mustafin.ebooks.mainFlow.data.repositories.rulesRepository.RulesRepositoryImpl
+import com.mustafin.ebooks.mainFlow.data.source.local.RulesSource
 import com.mustafin.ebooks.mainFlow.domain.PdfReader
 import dagger.Module
 import dagger.Provides
@@ -25,5 +29,17 @@ object MainFlowModule {
     @Singleton
     fun providePdfReader(@ApplicationContext context: Context): PdfReader {
         return PdfReader(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRulesSource(sharedPreferences: SharedPreferences): RulesSource {
+        return RulesSource(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRulesRepository(rulesSource: RulesSource): RulesRepository {
+        return RulesRepositoryImpl(rulesSource)
     }
 }

@@ -1,7 +1,6 @@
 package com.mustafin.ebooks.readerFlow.ui.screens.readerScreen.views.bookContentView
 
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
