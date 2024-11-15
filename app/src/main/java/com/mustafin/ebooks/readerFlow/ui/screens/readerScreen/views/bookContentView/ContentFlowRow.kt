@@ -96,16 +96,16 @@ fun ContentFlowRow(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null
                         ) {
-                            var context = ""
-                            currentPageContent.subList(
-                                0.coerceAtLeast(index - 5),
-                                currentPageContent.size.coerceAtMost(index + 5)
-                            ).forEach { context += "$it " }
-
-                            onSelectWord(
-                                currentPageContent[index],
-                                context
-                            )
+//                            var context = ""
+//                            currentPageContent.subList(
+//                                0.coerceAtLeast(index - 5),
+//                                currentPageContent.size.coerceAtMost(index + 5)
+//                            ).forEach { context += "$it " }
+//
+//                            onSelectWord(
+//                                currentPageContent[index],
+//                                context
+//                            )
                         }
                 )
             }

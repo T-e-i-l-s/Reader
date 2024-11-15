@@ -91,7 +91,6 @@ class AddBookViewModel @Inject constructor(
                     "generated_book_name",
                     "{\"generated_name\":\"${bookInfo.name}\"}"
                 )
-                println(bookInfo.name)
 
                 // Картинка первой страницы
                 selectedFileUri?.let { fileUrl ->
