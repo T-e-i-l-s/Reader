@@ -1,5 +1,6 @@
 package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.optionsView
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -40,9 +41,7 @@ fun OptionView(option: OptionModel) {
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
             ) {
-                Toast
-                    .makeText(context, "Заглушка", Toast.LENGTH_SHORT)
-                    .show()
+                context.startActivity(Intent(Intent.ACTION_VIEW, option.link))
 
                 GlobalScope.launch {
                     AppMetrica.reportEvent(

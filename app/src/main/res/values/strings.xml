@@ -18,6 +18,8 @@
     <string name="delete">Удалить</string>
     <string name="was_read">Прочитано</string>
     <string name="support">Поддержка</string>
+    <string name="telegram_channel">Наш телеграм-канал</string>
+    <string name="beta">Информация о бета-тесте</string>
     <string name="estimate">Оценить приложение</string>
     <string name="donate">Поддержать проект</string>
     <string name="terms_of_use">Условия использования</string>
