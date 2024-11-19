@@ -1,5 +1,6 @@
 package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.optionsView
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,23 +21,18 @@ fun OptionsListView() {
     val options = listOf(
         OptionModel(
             R.drawable.support_icon,
-            stringResource(id = R.string.support)
+            stringResource(id = R.string.support),
+            Uri.parse("https://t.me/reader_support")
         ),
         OptionModel(
-            R.drawable.star_icon,
-            stringResource(id = R.string.estimate)
-        ), OptionModel(
-            R.drawable.donate_icon,
-            stringResource(id = R.string.donate)
-        ), OptionModel(
             R.drawable.document_icon,
-            stringResource(id = R.string.terms_of_use)
-        ), OptionModel(
+            stringResource(id = R.string.terms_of_use),
+            Uri.parse("http://reader-app.ru/terms.html")
+        ),
+        OptionModel(
             R.drawable.document_icon,
-            stringResource(id = R.string.privacy_policy)
-        ), OptionModel(
-            R.drawable.about_icon,
-            stringResource(id = R.string.about_project)
+            stringResource(id = R.string.privacy_policy),
+            Uri.parse("http://reader-app.ru/privacy.html")
         )
     )
 
