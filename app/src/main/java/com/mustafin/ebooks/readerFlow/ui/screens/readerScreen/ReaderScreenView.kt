@@ -84,12 +84,14 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                 ModalBottomSheet(
                     onDismissRequest = { viewModel.showMenu = false },
                     containerColor = colorResource(id = R.color.background),
-                    windowInsets = WindowInsets(
-                        0,
-                        0,
-                        0,
-                        WindowInsets.navigationBars.getBottom(LocalDensity.current)
-                    )
+                    contentWindowInsets = {
+                        WindowInsets(
+                            0,
+                            0,
+                            0,
+                            WindowInsets.navigationBars.getBottom(LocalDensity.current)
+                        )
+                    }
                 ) {
                     MenuView(
                         book = viewModel.book,
@@ -103,12 +105,14 @@ fun ReaderScreenView(bookId: Int, openHomeScreen: () -> Unit) {
                 ModalBottomSheet(
                     onDismissRequest = viewModel::resetSelection,
                     containerColor = colorResource(id = R.color.background),
-                    windowInsets = WindowInsets(
-                        0,
-                        0,
-                        0,
-                        WindowInsets.navigationBars.getBottom(LocalDensity.current)
-                    )
+                    contentWindowInsets = {
+                        WindowInsets(
+                            0,
+                            0,
+                            0,
+                            WindowInsets.navigationBars.getBottom(LocalDensity.current)
+                        )
+                    }
                 ) {
                     viewModel.selectedWord?.let { selectedWord ->
                         viewModel.selectedContext?.let { selectedContext ->

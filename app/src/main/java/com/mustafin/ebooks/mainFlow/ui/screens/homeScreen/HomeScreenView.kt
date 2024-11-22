@@ -89,12 +89,14 @@ fun HomeScreenView(
                 addBookViewModel.resetState()
             },
             containerColor = colorResource(id = R.color.background),
-            windowInsets = WindowInsets(
-                0,
-                0,
-                0,
-                WindowInsets.navigationBars.getBottom(LocalDensity.current)
-            )
+            contentWindowInsets = {
+                WindowInsets(
+                    0,
+                    0,
+                    0,
+                    WindowInsets.navigationBars.getBottom(LocalDensity.current)
+                )
+            }
         ) {
             AddBookBottomSheetView(reloadBooksList = viewModel::loadData)
         }
