@@ -87,7 +87,7 @@ fun ContentFlowRow(
                 Text(
                     text = currentPageContent[index],
                     color = colorResource(id = R.color.text),
-                    fontSize = 24.sp,
+                    fontSize = 27.sp,
                     fontFamily = READER_FONT,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier

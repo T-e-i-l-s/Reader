@@ -13,6 +13,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.mustafin.ebooks.R
+import com.mustafin.ebooks.mainFlow.domain.PRIVACY_LINK
+import com.mustafin.ebooks.mainFlow.domain.TERMS_LINK
 
 // View с различными ссылками
 @Composable
@@ -27,12 +29,12 @@ fun OptionsListView() {
         OptionModel(
             R.drawable.document_icon,
             stringResource(id = R.string.terms_of_use),
-            Uri.parse("http://reader-app.ru/terms.html")
+            Uri.parse(TERMS_LINK)
         ),
         OptionModel(
             R.drawable.document_icon,
             stringResource(id = R.string.privacy_policy),
-            Uri.parse("http://reader-app.ru/privacy.html")
+            Uri.parse(PRIVACY_LINK)
         )
     )
 

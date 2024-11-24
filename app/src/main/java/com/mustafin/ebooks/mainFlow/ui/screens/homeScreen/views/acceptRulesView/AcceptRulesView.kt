@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.sp
 import com.mustafin.ebooks.R
 import com.mustafin.ebooks.core.domain.APP_DEFAULT_FONT
 import com.mustafin.ebooks.core.ui.components.CustomCheckbox
+import com.mustafin.ebooks.mainFlow.domain.PRIVACY_LINK
+import com.mustafin.ebooks.mainFlow.domain.TERMS_LINK
 
 // View принятия условий использования и политики конфиденциальности
 @Composable
@@ -41,7 +43,7 @@ fun AcceptRulesView(areAccepted: Boolean, onAreAcceptedChange: (Boolean) -> Unit
 
                 append("Я принимаю ")
 
-                withLink(LinkAnnotation.Url(url = "https://github.com")) {
+                withLink(LinkAnnotation.Url(url = TERMS_LINK)) {
                     withStyle(
                         style = styleCenter
                     ) {
@@ -52,7 +54,7 @@ fun AcceptRulesView(areAccepted: Boolean, onAreAcceptedChange: (Boolean) -> Unit
                 append(" и ")
 
 
-                withLink(LinkAnnotation.Url(url = "https://github.com")) {
+                withLink(LinkAnnotation.Url(url = PRIVACY_LINK)) {
                     withStyle(style = styleCenter) {
                         append("политику конфиденциальности")
                     }
