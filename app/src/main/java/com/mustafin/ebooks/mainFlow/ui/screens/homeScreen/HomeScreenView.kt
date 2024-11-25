@@ -94,7 +94,7 @@ fun HomeScreenView(
                     0,
                     0,
                     0,
-                    WindowInsets.navigationBars.getBottom(LocalDensity.current)
+                    0
                 )
             }
         ) {
