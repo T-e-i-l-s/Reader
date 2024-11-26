@@ -65,7 +65,7 @@ fun AcceptRulesView(areAccepted: Boolean, onAreAcceptedChange: (Boolean) -> Unit
         Text(
             text = annotatedString,
             color = colorResource(id = R.color.text),
-            fontSize = 15.sp,
+            fontSize = 18.sp,
             fontFamily = APP_DEFAULT_FONT,
         )
     }

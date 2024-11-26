@@ -6,8 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -70,10 +68,6 @@ fun BookInfoView(
                 .height(254.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(colorResource(id = R.color.secondary_background))
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) { openReader(book.id) }
                 .padding(12.dp),
         ) {
             Image(
@@ -116,12 +110,14 @@ fun BookInfoView(
 
                     LinearProgressIndicator(
                         progress = { book.progress },
+                        modifier = Modifier
+                            .height(7.dp)
+                            .fillMaxWidth(),
                         color = colorResource(id = R.color.additional),
                         trackColor = colorResource(id = R.color.ternary),
                         strokeCap = StrokeCap.Round,
-                        modifier = Modifier
-                            .height(7.dp)
-                            .fillMaxWidth()
+                        gapSize = (-7).dp,
+                        drawStopIndicator = {}
                     )
                 }
 
@@ -138,7 +134,7 @@ fun BookInfoView(
                     if (isRemovable) {
                         SmallButton(
                             text = stringResource(id = R.string.delete),
-                            background = colorResource(id = R.color.red),
+                            background = colorResource(id = R.color.remove_book_button_color),
                             textColor = colorResource(id = R.color.white),
                             onClick = { showDeleteConfirmationModal = true },
                         )

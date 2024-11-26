@@ -14,3 +14,4 @@
 .cxx
 local.properties
 /app/src/main/java/com/mustafin/ebooks/core/domain/Keys.kt
+/reader-key.jks

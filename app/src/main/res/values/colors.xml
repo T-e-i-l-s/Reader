@@ -10,6 +10,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="additional">#289D6B</color>
+    <color name="remove_book_button_color">#943F3F</color>
     <color name="red">#CE3535</color>
     <!--  Цвета маркера ИИ  -->
     <color name="ai_marker_color1">#289D6B</color>
