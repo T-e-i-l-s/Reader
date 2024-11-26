@@ -70,10 +70,6 @@ fun BookInfoView(
                 .height(254.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(colorResource(id = R.color.secondary_background))
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) { openReader(book.id) }
                 .padding(12.dp),
         ) {
             Image(
@@ -138,7 +134,7 @@ fun BookInfoView(
                     if (isRemovable) {
                         SmallButton(
                             text = stringResource(id = R.string.delete),
-                            background = colorResource(id = R.color.red),
+                            background = colorResource(id = R.color.remove_book_button_color),
                             textColor = colorResource(id = R.color.white),
                             onClick = { showDeleteConfirmationModal = true },
                         )

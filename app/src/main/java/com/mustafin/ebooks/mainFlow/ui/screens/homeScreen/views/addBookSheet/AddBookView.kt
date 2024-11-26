@@ -63,7 +63,6 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.background))
-            .navigationBarsPadding()
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
