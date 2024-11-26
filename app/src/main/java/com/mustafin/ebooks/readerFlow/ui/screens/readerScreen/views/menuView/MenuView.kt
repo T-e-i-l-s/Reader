@@ -49,6 +49,8 @@ fun MenuView(book: BookModel, progress: Float, openHomeScreen: () -> Unit) {
             color = colorResource(id = R.color.additional),
             trackColor = colorResource(id = R.color.secondary_background),
             strokeCap = StrokeCap.Round,
+            gapSize = (-7).dp,
+            drawStopIndicator = {}
         )
 
         Spacer(modifier = Modifier.height(2.dp))
