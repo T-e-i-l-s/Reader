@@ -13,7 +13,7 @@ import com.mustafin.ebooks.core.data.source.local.booksDatabase.BooksDatabase
 import com.mustafin.ebooks.core.data.source.local.daysInRow.DaysInRowSource
 import com.mustafin.ebooks.core.data.source.local.lastBookSource.LastBookSource
 import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
-import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
+import com.mustafin.ebooks.core.data.source.network.largeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.core.domain.LLM_API_BASE_URL
 import dagger.Module
 import dagger.Provides

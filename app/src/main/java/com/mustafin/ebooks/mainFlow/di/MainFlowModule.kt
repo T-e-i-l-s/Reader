@@ -2,7 +2,7 @@ package com.mustafin.ebooks.mainFlow.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
+import com.mustafin.ebooks.core.data.source.network.largeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.mainFlow.data.repositories.bookInfoRepository.BookInfoRepository
 import com.mustafin.ebooks.mainFlow.data.repositories.bookInfoRepository.BookInfoRepositoryImpl
 import com.mustafin.ebooks.mainFlow.data.repositories.rulesRepository.RulesRepository

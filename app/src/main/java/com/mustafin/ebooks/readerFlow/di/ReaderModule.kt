@@ -1,7 +1,7 @@
 package com.mustafin.ebooks.readerFlow.di
 
 import com.mustafin.ebooks.core.data.source.local.readerProgressDatabase.ReaderProgressDatabase
-import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
+import com.mustafin.ebooks.core.data.source.network.largeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepository
 import com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository.DictionaryRepositoryImpl
 import com.mustafin.ebooks.readerFlow.data.repositories.readerProgressRepository.ReaderProgressRepository

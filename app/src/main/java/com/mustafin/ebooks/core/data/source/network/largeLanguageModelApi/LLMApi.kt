@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi
+package com.mustafin.ebooks.core.data.source.network.largeLanguageModelApi
 
 import com.mustafin.ebooks.core.domain.enums.ResponseStatus
 import retrofit2.Retrofit

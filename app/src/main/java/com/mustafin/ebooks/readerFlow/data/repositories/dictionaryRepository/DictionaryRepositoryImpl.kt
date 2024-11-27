@@ -1,6 +1,6 @@
 package com.mustafin.ebooks.readerFlow.data.repositories.dictionaryRepository
 
-import com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi.LLMApi
+import com.mustafin.ebooks.core.data.source.network.largeLanguageModelApi.LLMApi
 import com.mustafin.ebooks.core.domain.enums.ResponseStatus
 import javax.inject.Inject
 

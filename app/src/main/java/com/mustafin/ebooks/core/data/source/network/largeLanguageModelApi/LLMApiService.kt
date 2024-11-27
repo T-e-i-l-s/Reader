@@ -1,4 +1,4 @@
-package com.mustafin.ebooks.core.data.source.network.LargeLanguageModelApi
+package com.mustafin.ebooks.core.data.source.network.largeLanguageModelApi
 
 import com.mustafin.ebooks.core.domain.LLM_API_KEY
 import retrofit2.Response
