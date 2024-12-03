@@ -27,6 +27,11 @@ fun OptionsListView() {
             Uri.parse("https://t.me/reader_support")
         ),
         OptionModel(
+            R.drawable.telegram_icon,
+            stringResource(id = R.string.telegram_channel),
+            Uri.parse("https://t.me/reader_updates")
+        ),
+        OptionModel(
             R.drawable.document_icon,
             stringResource(id = R.string.terms_of_use),
             Uri.parse(TERMS_LINK)
