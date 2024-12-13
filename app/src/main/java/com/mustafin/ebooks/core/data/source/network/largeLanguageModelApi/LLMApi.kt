@@ -23,6 +23,8 @@ class LLMApi @Inject constructor(retrofit: Retrofit) {
                 )
             )
 
+            println(response)
+
             if (response.isSuccessful) {
                 Pair(
                     ResponseStatus.SUCCESS,
