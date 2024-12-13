@@ -3,6 +3,7 @@ package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -62,6 +63,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.background))
+            .animateContentSize()
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
