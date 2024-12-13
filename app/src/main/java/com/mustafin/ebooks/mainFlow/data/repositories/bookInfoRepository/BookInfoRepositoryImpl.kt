@@ -9,6 +9,7 @@ class BookInfoRepositoryImpl @Inject constructor(
     private val llmApi: LLMApi
 ) : BookInfoRepository {
     override suspend fun getBookInfoByFragment(fragment: String): Pair<ResponseStatus, BookInfoModel?> {
+        println(fragment)
         val llmResponse = llmApi.makeRequest(
             "Найди название произведения в фрагменте \"$fragment\". " +
                     "В ответе дай только название произведения и ничего больше. " +

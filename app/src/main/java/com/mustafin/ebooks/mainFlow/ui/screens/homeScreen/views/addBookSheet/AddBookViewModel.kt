@@ -80,7 +80,7 @@ class AddBookViewModel @Inject constructor(
                 val bookInfo = try {
                     var firstFragment = ""
                     separatedContent.subList(
-                        0, 500.coerceAtMost(separatedContent.size)
+                        0, 300.coerceAtMost(separatedContent.size)
                     ).forEach { firstFragment += "$it " }
                     bookInfoRepository.getBookInfoByFragment(firstFragment).second!!
                 } catch (e: Exception) {
