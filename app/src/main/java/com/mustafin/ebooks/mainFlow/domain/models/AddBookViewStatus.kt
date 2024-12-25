@@ -7,5 +7,6 @@ enum class AddBookViewStatus(val label: String? = null) {
     PROCESSING("Обрабатываем текст книги"),
     REQUEST_BOOK_NAME,
     SAVING("Сохраняем данные"),
+    WRONG_FORMAT("Содержимое файла недоступно"),
     COMPLETED, ERROR
 }

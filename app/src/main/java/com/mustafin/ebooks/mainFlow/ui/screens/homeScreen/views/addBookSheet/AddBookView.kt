@@ -3,6 +3,7 @@ package com.mustafin.ebooks.mainFlow.ui.screens.homeScreen.views.addBookSheet
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -62,6 +63,7 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.background))
+            .animateContentSize()
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -158,6 +160,26 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                     enabled = viewModel.bookName.isNotEmpty(),
                     modifier = Modifier.fillMaxWidth()
                 ) { viewModel.saveBook() }
+            }
+
+            AddBookViewStatus.WRONG_FORMAT -> {
+                Icon(
+                    painter = painterResource(id = R.drawable.error_icon),
+                    contentDescription = null,
+                    tint = colorResource(id = R.color.additional),
+                    modifier = Modifier.size(25.dp),
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                viewModel.viewStatus.label?.let {
+                    Text(
+                        text = it,
+                        color = colorResource(id = R.color.text),
+                        fontSize = 18.sp,
+                        fontFamily = APP_DEFAULT_FONT
+                    )
+                }
             }
 
             else -> {

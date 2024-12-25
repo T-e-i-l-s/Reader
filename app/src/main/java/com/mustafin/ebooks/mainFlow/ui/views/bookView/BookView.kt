@@ -50,6 +50,8 @@ fun BookInfoView(
     deleteBook: () -> Unit = {},
     isRemovable: Boolean = false
 ) {
+    val progress = if (book.progress.isNaN()) 0f else book.progress
+
     var showDeleteConfirmationModal by remember { mutableStateOf(false) }
     var isVisible by remember { mutableStateOf(false) }
 
@@ -99,7 +101,7 @@ fun BookInfoView(
 
                 Column {
                     Text(
-                        text = "${stringResource(id = R.string.was_read)} ${(book.progress * 100).roundToInt()}%",
+                        text = "${stringResource(id = R.string.was_read)} ${(progress * 100).roundToInt()}%",
                         color = colorResource(id = R.color.gray),
                         fontWeight = FontWeight.Thin,
                         fontSize = 15.sp,

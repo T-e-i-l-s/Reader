@@ -16,7 +16,7 @@ interface LLMApiService {
     ): Response<GetWordMeaningResponse>
 
     data class GetWordMeaningRequestBody (
-        val model: String = "Meta-Llama-3.1-8B-Instruct",
+        val model: String = "Mistral-Nemo-12B-Instruct-2407",
         val messages: List<RequestMessageModel>
     )
     data class RequestMessageModel (

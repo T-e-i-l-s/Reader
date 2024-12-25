@@ -32,11 +32,11 @@ object CoreModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        // Устанавливаем timeout в 30 секунд
+        // Устанавливаем timeout в 10 секунд
         val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()
