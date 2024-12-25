@@ -162,6 +162,26 @@ fun AddBookBottomSheetView(reloadBooksList: () -> Unit) {
                 ) { viewModel.saveBook() }
             }
 
+            AddBookViewStatus.WRONG_FORMAT -> {
+                Icon(
+                    painter = painterResource(id = R.drawable.error_icon),
+                    contentDescription = null,
+                    tint = colorResource(id = R.color.additional),
+                    modifier = Modifier.size(25.dp),
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                viewModel.viewStatus.label?.let {
+                    Text(
+                        text = it,
+                        color = colorResource(id = R.color.text),
+                        fontSize = 18.sp,
+                        fontFamily = APP_DEFAULT_FONT
+                    )
+                }
+            }
+
             else -> {
                 CustomProgressIndicator(
                     size = 21.dp,

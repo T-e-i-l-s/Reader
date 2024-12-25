@@ -76,6 +76,12 @@ class AddBookViewModel @Inject constructor(
                 // Раздяеляем текст в List<String>
                 separatedContent = ContentProcessor.separateContent(bookContent)
 
+                // Проверяем валидность книги
+                if (separatedContent.isEmpty()) {
+                    viewStatus = AddBookViewStatus.WRONG_FORMAT
+                    return@launch
+                }
+
                 // Получаем основную информацию книги(название) при помощи ИИ
                 val bookInfo = try {
                     var firstFragment = ""
